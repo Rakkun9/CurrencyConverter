@@ -5,12 +5,13 @@ public class Exchange {
     private String value;
 
 
-
-
-
+    //Erase value if is necessary in the course of the project
     public Exchange(String exchange, String value) {
         this.exchange = exchange;
         this.value = value;
+    }
+    public Exchange(){
+
     }
 
     public Exchange (ExchangeOmdb exchangeOmdb) {
