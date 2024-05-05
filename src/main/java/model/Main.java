@@ -11,14 +11,20 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
 
-        int iniciador = 0;
-        while(iniciador != -1){
+        int exitProgram = 0;
+        while(exitProgram != 1){
+
             PrincipalMessage();
-            String userInput = scanner.nextLine();
+            System.out.println("Selecciona la moneda inicial que deseas convertir:");
+            String userInput = scanner.next();
             String userInputFilter = Filters.removeSpacesAndUppercase(userInput);
 
-            // Use the user-selected currency for the API request
+            scanner.nextLine();
+
+
+            // Use the user select the currency for the API request
             SimpleMessage();
+            System.out.println("Selecciona la moneda final que deseas convertir:");
             String out = scanner.nextLine();
             String outFilter = Filters.removeSpacesAndUppercase(out);
 
@@ -26,12 +32,18 @@ public class Main {
             System.out.println("Por favor digita la cantidad " + userInputFilter + " que deseas convertir");
             double value = scanner.nextDouble();
 
-            // Calculate the conversion based on user-selected currencies and value
+            // Calculate the conversion based on user selected currencies and value
             double convertedAmount = apiRequest.currencyMade(userInputFilter, outFilter, value);
 
             System.out.println("La cantidad convertida es: " + convertedAmount + " " + outFilter);
 
-            iniciador = -1;
+            System.out.println("""
+                    ¿Deseas salir del programa?
+
+                    Digita -1 si quieres seguir con el programa
+                    Digita Cualquier otro número si deseas salir del programa
+                    """);
+            exitProgram = scanner.nextInt() != -1 ? 1 : 0;
         }
     }
 
@@ -214,7 +226,6 @@ public class Main {
     private static void SimpleMessage(){
         System.out.println("""
                 Tasas disponibles a convertir:
-                
                 
                 AED
                 AFN

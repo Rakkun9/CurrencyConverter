@@ -30,7 +30,7 @@ public class ApiRequest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlKey)).build();
         HttpResponse<String> response;
 
-        //Creating the response to sout in the console
+        //Creating the response
         response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String json = response.body();
 
@@ -45,6 +45,7 @@ public class ApiRequest {
     }
 
     public double currencyMade (String originalString, String ultimateString, double value) throws IOException, InterruptedException {
+        //principal class to make the operations to the currencies
         return value * Request(originalString, ultimateString);
     }
 
