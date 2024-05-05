@@ -18,13 +18,15 @@ import java.util.List;
 public class ApiRequest {
     Filters filters = new Filters();
     List<Double> rates = new ArrayList<>();
-    String urlKey = "https://v6.exchangerate-api.com/v6/17db8725421a208f39ba17d0/latest/" + filters.RemoveSpaces();
 
-    public void Request () throws IOException, InterruptedException {
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    public double Request (String value) throws IOException, InterruptedException {
+
+
+        String urlKey = "https://v6.exchangerate-api.com/v6/17db8725421a208f39ba17d0/latest/" + filters.RemoveSpaces(value);
 
         //Creating some parameters to control the output of the JSON
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         //General Structure to get the response of the side of the server
         HttpClient client = HttpClient.newHttpClient();
@@ -42,16 +44,20 @@ public class ApiRequest {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         JsonObject conversionRatesObject  = jsonObject.getAsJsonObject("conversion_rates");
 
-        rates.add(conversionRatesObject.getAsJsonPrimitive("USD").getAsDouble());
-        rates.add(conversionRatesObject.getAsJsonPrimitive("COP").getAsDouble());
-        rates.add(conversionRatesObject.getAsJsonPrimitive("ARS").getAsDouble());
-        rates.add(conversionRatesObject.getAsJsonPrimitive("BOB").getAsDouble());
-        rates.add(conversionRatesObject.getAsJsonPrimitive("BRL").getAsDouble());
+
+        double currencyMade = conversionRatesObject.getAsJsonPrimitive(value).getAsDouble();
+        System.out.println(currencyMade);
+
+//        rates.add(conversionRatesObject.getAsJsonPrimitive(value).getAsDouble());
+//        rates.add(conversionRatesObject.getAsJsonPrimitive("COP").getAsDouble());
+//        rates.add(conversionRatesObject.getAsJsonPrimitive("ARS").getAsDouble());
+//        rates.add(conversionRatesObject.getAsJsonPrimitive("BOB").getAsDouble());
+//        rates.add(conversionRatesObject.getAsJsonPrimitive("BRL").getAsDouble());
+        return currencyMade;
     }
 
-    public double currencyMade (int value){
-        int idk = 0;
-        return value * rates.get(idk);
+    public double currencyMade (String value) throws IOException, InterruptedException {
+        return 1 * Request(value);
     }
 
 

@@ -2,10 +2,11 @@ package model;
 
 import ApiRequest.ApiRequest;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ApiRequest apiRequest = new ApiRequest();
         Exchange exchange = new Exchange();
         Scanner scanner = new Scanner(System.in);
@@ -18,6 +19,8 @@ public class Main {
             filters.RemoveSpaces(userInput);
             SimpleMessage();
             String out = scanner.nextLine();
+            String outFilter = filters.RemoveSpaces(out);
+            System.out.println(apiRequest.currencyMade(outFilter));
             iniciador = -1;
         }
     }
